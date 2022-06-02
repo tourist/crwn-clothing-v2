@@ -1,5 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -35,8 +40,17 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     try {
       await setDoc(userDocRef, { displayName, email, createdAt });
     } catch (error) {
-      console.log('error creating the user', error.message);
+      if (error.code === 'auth/email-already-in-use') {
+        alert('Email already in use');
+      } else {
+        console.log('error creating the user', error.message);
+      }
     }
   }
   return userDocRef;
+};
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
