@@ -46,7 +46,6 @@ const SignUpForm = () => {
     } catch (error) {
       console.log('user creation encountered error', error);
     }
-
     resetFormFields();
   };
 
