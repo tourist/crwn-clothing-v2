@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '../button/button.component';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
 
 const defaultFormFields = {
@@ -66,7 +66,7 @@ const SignInForm = () => {
           onChange={handleChange}
           value={password}
         />
-        <Button buttonType="google">Sign In</Button>
+        <Button buttonType={BUTTON_TYPE_CLASSES.google}>Sign In</Button>
       </form>
     </div>
   );

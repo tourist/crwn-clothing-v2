@@ -3,9 +3,9 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils';
-import Button from '../button/button.component';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
-import './sign-up-form.styles.scss';
+import { SignUpContainer } from './sign-up-form.styles';
 
 const defaultFormFields = {
   displayName: '',
@@ -50,7 +50,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <SignUpContainer>
       <h1>Don't have account yet?</h1>
       <span>Sign up below</span>
       <form onSubmit={handleSubmit}>
@@ -90,9 +90,9 @@ const SignUpForm = () => {
           value={confirmPassword}
         />
 
-        <Button buttonType="google">Sign Up</Button>
+        <Button buttonType={BUTTON_TYPE_CLASSES.google}>Sign Up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 
