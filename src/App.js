@@ -22,6 +22,11 @@ const App = () => {
     const unsubsribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserDocumentFromAuth(user);
+        user = {
+          accessToken: user.accessToken,
+          email: user.email,
+          displayName: user.displayName,
+        };
       }
       dispatch(setCurrentUser(user));
     });

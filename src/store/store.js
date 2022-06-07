@@ -1,23 +1,17 @@
-import { compose, createStore, applyMiddleware } from 'redux';
-import logger from 'redux-logger';
-import { persistStore, persistReducer } from 'redux-persist';
+import { configureStore } from '@reduxjs/toolkit';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import thunk from 'redux-thunk';
 
 import { rootReducer } from './root-reducer';
-
-const middlewares = [
-  process.env.NODE_ENV !== 'production' && logger,
-  thunk,
-].filter(Boolean);
-
-const composeEnhancers =
-  (process.env.NODE_ENV !== 'production' &&
-    window &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
-
-const composedEnhancers = composeEnhancers(applyMiddleware(...middlewares));
 
 const persistConfig = {
   key: 'root',
@@ -27,9 +21,14 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(
-  persistedReducer,
-  undefined,
-  composedEnhancers
-);
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
 export const persistor = persistStore(store);
