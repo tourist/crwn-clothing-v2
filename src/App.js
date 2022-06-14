@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { setCurrentUser } from './store/user/user.action';
 
@@ -14,9 +13,10 @@ import Shop from './routes/shop/shop.component';
 import Navigation from './routes/navigation/navigation.component';
 import Authentication from './routes/authentication/authentication.component.jsx';
 import Checkout from './routes/checkout/checkout.component';
+import { useAppDispatch } from './store/hooks';
 
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const unsubsribe = onAuthStateChangedListener((user) => {
