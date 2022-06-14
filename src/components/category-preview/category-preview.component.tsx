@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import {
   CategoryPreviewContainer,
   Title,
@@ -12,7 +11,7 @@ type CategoryPreviewProps = {
   products: Item[];
 };
 
-const CategoryPreview: FC<CategoryPreviewProps> = ({ title, products }) => {
+const CategoryPreview = ({ title, products }: CategoryPreviewProps) => {
   return (
     <CategoryPreviewContainer>
       <h2>

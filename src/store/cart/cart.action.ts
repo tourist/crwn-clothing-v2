@@ -1,8 +1,8 @@
 import { setCartItems, toogleCartOpen } from './cart.slice';
-import { CartItem, CartItems } from './cart.types';
+import { Item, CartItem, CartItems } from './cart.types';
 export const setIsCartOpen = (boolean: boolean) => toogleCartOpen(boolean);
 
-const addCartItem = (cartItems: CartItems, productToAdd: CartItem) => {
+const addCartItem = (cartItems: CartItems, productToAdd: Item | CartItem) => {
   const existingProduct = cartItems.find(
     (cartItem) => cartItem.id === productToAdd.id
   );
@@ -37,7 +37,10 @@ const removeCartItem = (cartItems: CartItems, productToRemove: CartItem) => {
 const clearCartItem = (cartItems: CartItems, cartItemToClear: CartItem) =>
   cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 
-export const addItemToCart = (cartItems: CartItems, productToAdd: CartItem) => {
+export const addItemToCart = (
+  cartItems: CartItems,
+  productToAdd: Item | CartItem
+) => {
   const newCartItems = addCartItem(cartItems, productToAdd);
   return setCartItems(newCartItems);
 };

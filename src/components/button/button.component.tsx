@@ -1,4 +1,4 @@
-import { FC, ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
 import {
   BaseButton,
@@ -25,12 +25,12 @@ export type ButtonProps = {
   isLoading?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: FC<ButtonProps> = ({
+const Button = ({
   children,
   buttonType,
   isLoading,
   ...otherProps
-}) => {
+}: ButtonProps) => {
   const CustomButton = getButton(buttonType);
   return (
     <CustomButton disabled={isLoading} {...otherProps}>

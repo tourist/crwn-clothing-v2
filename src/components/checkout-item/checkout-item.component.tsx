@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import {
   CheckoutItemContainer,
   ImageContainer,
@@ -21,7 +20,7 @@ type CheckoutItemProps = {
   cartItem: CartItem;
 };
 
-const CheckoutItem: FC<CheckoutItemProps> = ({ cartItem }) => {
+const CheckoutItem = ({ cartItem }: CheckoutItemProps) => {
   const { name, imageUrl, price, quantity } = cartItem;
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector(selectCartItems);

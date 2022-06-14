@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import {
   BackgroundImage,
   Body,
@@ -16,7 +15,7 @@ type DirectoryItemsProps = {
   category: DirectoryCategory;
 };
 
-const DirectoryItem: FC<DirectoryItemsProps> = ({ category }) => {
+const DirectoryItem = ({ category }: DirectoryItemsProps) => {
   const { imageUrl, title, route } = category;
   return (
     <DirectoryItemContainer to={route}>
