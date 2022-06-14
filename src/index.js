@@ -1,14 +1,14 @@
+import './index.scss';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store } from './store/store';
-import './index.scss';
+import { store, persistor } from './store/store';
 import App from './App';
 import { Elements } from '@stripe/react-stripe-js';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { persistor } from './store/store';
 import { stripePromise } from './utils/stripe/stripe.utils';
 
 ReactDOM.render(

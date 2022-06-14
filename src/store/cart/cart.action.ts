@@ -1,8 +1,8 @@
 import { setCartItems, toogleCartOpen } from './cart.slice';
+import { CartItem, CartItems } from './cart.types';
+export const setIsCartOpen = (boolean: boolean) => toogleCartOpen(boolean);
 
-export const setIsCartOpen = (boolean) => toogleCartOpen(boolean);
-
-const addCartItem = (cartItems, productToAdd) => {
+const addCartItem = (cartItems: CartItems, productToAdd: CartItem) => {
   const existingProduct = cartItems.find(
     (cartItem) => cartItem.id === productToAdd.id
   );
@@ -18,12 +18,12 @@ const addCartItem = (cartItems, productToAdd) => {
   }
 };
 
-const removeCartItem = (cartItems, productToRemove) => {
-  const existingProduct = cartItems.find(
-    (cartItem) => cartItem.id === productToRemove.id
-  );
+const removeCartItem = (cartItems: CartItems, productToRemove: CartItem) => {
+  const existingProduct =
+    cartItems &&
+    cartItems.find((cartItem) => cartItem.id === productToRemove.id);
 
-  if (existingProduct.quantity === 1) {
+  if (existingProduct && existingProduct.quantity === 1) {
     return cartItems.filter((cartItem) => cartItem.id !== existingProduct.id);
   } else {
     return cartItems.map((cartItem) =>
@@ -34,19 +34,25 @@ const removeCartItem = (cartItems, productToRemove) => {
   }
 };
 
-const clearCartItem = (cartItems, cartItemToClear) =>
+const clearCartItem = (cartItems: CartItems, cartItemToClear: CartItem) =>
   cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 
-export const addItemToCart = (cartItems, productToAdd) => {
+export const addItemToCart = (cartItems: CartItems, productToAdd: CartItem) => {
   const newCartItems = addCartItem(cartItems, productToAdd);
   return setCartItems(newCartItems);
 };
 
-export const removeItemFromCart = (cartItems, productToRemove) => {
+export const removeItemFromCart = (
+  cartItems: CartItems,
+  productToRemove: CartItem
+) => {
   const newCartItems = removeCartItem(cartItems, productToRemove);
   return setCartItems(newCartItems);
 };
-export const clearItemFromCart = (cartItems, productToRemove) => {
+export const clearItemFromCart = (
+  cartItems: CartItems,
+  productToRemove: CartItem
+) => {
   const newCartItems = clearCartItem(cartItems, productToRemove);
   return setCartItems(newCartItems);
 };

@@ -3,5 +3,5 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchCategoriesAsync = createAsyncThunk(
   'users/fetchCategoriesAsync',
-  async () => getCategoriesAndDocuments('categories')
+  getCategoriesAndDocuments
 );

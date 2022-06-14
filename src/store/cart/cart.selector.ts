@@ -1,6 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { CartItem, CartItems } from './cart.types';
+import { RootState } from '../store';
 
-const selectCartReducer = (state) => state.cart;
+const selectCartReducer = (state: RootState) => state.cart;
 
 export const selectCartItems = createSelector(
   [selectCartReducer],
@@ -13,14 +15,15 @@ export const selectIsCartOpen = createSelector(
 
 export const selectCartCount = createSelector(
   [selectCartItems],
-  (cartItems) =>
+  (cartItems: CartItems) =>
     cartItems &&
     cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0)
 );
 
 export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
   cartItems.reduce(
-    (total, cartItem) => total + cartItem.quantity * cartItem.price,
+    (total: number, cartItem: CartItem) =>
+      total + cartItem.quantity * cartItem.price,
     0
   )
 );
