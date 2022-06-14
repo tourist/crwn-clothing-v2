@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { NewLifecycle, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { setCurrentUser } from './store/user/user.action';
@@ -11,24 +11,28 @@ import {
 import Home from './routes/home/home.component';
 import Shop from './routes/shop/shop.component';
 import Navigation from './routes/navigation/navigation.component';
-import Authentication from './routes/authentication/authentication.component.jsx';
+import Authentication from './routes/authentication/authentication.component';
 import Checkout from './routes/checkout/checkout.component';
 import { useAppDispatch } from './store/hooks';
+import { User } from './store/user/user.types';
 
 const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const unsubsribe = onAuthStateChangedListener((user) => {
+      let localUser: User | null = null;
+
       if (user) {
         createUserDocumentFromAuth(user);
-        user = {
-          accessToken: user.accessToken,
-          email: user.email,
-          displayName: user.displayName,
-        };
+        if (user.email && user.displayName) {
+          localUser = {
+            email: user.email,
+            displayName: user.displayName,
+          };
+        }
       }
-      dispatch(setCurrentUser(user));
+      dispatch(setCurrentUser(localUser));
     });
     return unsubsribe;
   }, [dispatch]);

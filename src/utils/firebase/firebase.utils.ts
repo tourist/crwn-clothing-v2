@@ -9,6 +9,8 @@ import {
   onAuthStateChanged,
   User,
   NextOrObserver,
+  AuthError,
+  AuthErrorCodes,
 } from 'firebase/auth';
 import {
   getFirestore,
@@ -91,10 +93,7 @@ export const createUserDocumentFromAuth = async (
     try {
       await setDoc(userDocRef, { displayName, email, createdAt });
     } catch (error) {
-      if (
-        error instanceof FirebaseError &&
-        error.code === 'auth/email-already-in-use'
-      ) {
+      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         alert('Email already in use');
       } else {
         console.log('error creating the user', error);
